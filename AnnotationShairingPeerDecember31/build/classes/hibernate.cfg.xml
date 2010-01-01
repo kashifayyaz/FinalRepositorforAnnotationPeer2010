@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+    <property name="connection.url">jdbc:derby://localhost:1527/testDB</property>
+    <property name="connection.username">kashif</property>
+    <property name="connection.password">kashif</property>
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.DerbyDialect</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
+    <property name="hibernate.search.default.indexBase">indexes</property>
+    <mapping resource="Annotation.hbm.xml"/>
+    <event type="post-update">
+      <listener class="org.hibernate.search.event.FullTextIndexEventListener"/>
+    </event>
+    <event type="post-insert">
+      <listener class="org.hibernate.search.event.FullTextIndexEventListener"/>
+    </event>
+    <event type="post-delete">
+      <listener class="org.hibernate.search.event.FullTextIndexEventListener"/>
+    </event>
+  </session-factory>
+</hibernate-configuration>

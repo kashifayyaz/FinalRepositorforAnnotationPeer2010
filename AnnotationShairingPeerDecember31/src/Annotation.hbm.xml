@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping
+   PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+   <class name="Annotation" table="annotation">
+      <id name="annID" column="AnnID" type="string">
+         <!--<generator class="increment"/>-->
+      </id>
+
+      <property name="resourceURL" column="ResourceURL" type="string"/>
+      <property name="description" column="Description" type="string"/>
+      <property name="creationTime" column="CreationTime" type="date"/>
+      <property name="annotationAuthor" column="AnnotationAuthor" type="string"/>
+       <property name="semToAnn" column="SemToAnn" type="string"/>
+       <property name="fileLocation" column="FileLocation" type="string"/>
+       <property name="digitalSignatures" column="DigitalSignatures" type="blob"/>
+       <set name="queryData" cascade="all">
+            <key column="AnnID"/>
+            <one-to-many class="AnnotationChild"/>
+        </set>
+   </class>
+
+   <class name="AnnotationChild" table="annotation_child">
+   <composite-id>
+        <key-property name="childId" column="id"/>
+        <key-property name="localAnnId"  column="AnnID"/>
+    </composite-id>
+     <property name="queryTerm" column="Query_Term" type="string"/>
+      <property name="text" column="Text" type="string"/>
+      <property name="concept" column="Concept" type="string"/>
+   </class>
+
+</hibernate-mapping>
